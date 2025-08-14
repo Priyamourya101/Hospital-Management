@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Hospital Management Backend
 
 A comprehensive ASP.NET Core 8 backend for Hospital & Inventory Management using EF Core Code-First approach, JWT Authentication, Session Management, and Validation.
@@ -189,3 +190,6 @@ The application uses EF Core Code-First approach. The database will be automatic
 ## License
 
 This project is licensed under the MIT License. 
+=======
+# Hospital-Management
+>>>>>>> 6063872eb38ecd1eab7e06896390f97cbeb5310b
