@@ -1,0 +1,99 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+name: hospital-management-backend
+description: ASP.NET Core 8 backend for Hospital & Inventory Management using EF Core Code-First approach, JWT Authentication, Session Management, and Validation.
+
+rules:
+  - pattern: Controllers/AdminController.cs
+    description: Handles admin operations like dashboard, details, and fetching all appointments.
+  - pattern: Controllers/AuthController.cs
+    description: Handles authentication (login), JWT token generation, refresh tokens, and logout functionality.
+  - pattern: Controllers/AppointmentController.cs
+    description: Handles appointment management for patients, doctors, and admins, including status updates and fetching appointments.
+  - pattern: Controllers/DoctorController.cs
+    description: Handles doctor operations like registration, fetching all doctors, updating/deleting doctor details, and issuing prescriptions.
+  - pattern: Controllers/PatientController.cs
+    description: Handles patient operations like registration, updating details, deleting, and fetching patient details.
+  - pattern: Controllers/InventoryController.cs
+    description: Handles inventory operations including add, update, delete, search, low stock check, expiring items, and dashboard stats.
+  - pattern: Controllers/OrderController.cs
+    description: Handles patient orders: place order, update, delete, and view patient-specific orders.
+  - pattern: Controllers/FeedbackController.cs
+    description: Handles feedback submission and fetching all feedback for admin.
+  - pattern: Controllers/ProductController.cs
+    description: Handles product listing and details for patients.
+  - pattern: Models/*
+    description: Contains EF Core Code-First models (Admin, Doctor, Patient, Appointment, Inventory, Order, Feedback, Prescription, Product).
+  - pattern: Data/HospitalContext.cs
+    description: EF Core DB Context for database interactions.
+  - pattern: Repositories/*
+    description: Repository layer for database operations related to Doctors, Patients, Appointments, Inventory, Orders, and Feedback.
+  - pattern: Services/*
+    description: Business logic for appointments, inventory, authentication, and orders.
+  - pattern: DTOs/*
+    description: Data Transfer Objects for request and response handling, validation, and filtering sensitive data.
+  - pattern: Middleware/JwtMiddleware.cs
+    description: Custom middleware for validating JWT tokens in requests.
+  - pattern: Helpers/JwtHelper.cs
+    description: Utility class for generating and validating JWT tokens.
+  - pattern: Helpers/PasswordHasher.cs
+    description: Utility for hashing and verifying user passwords.
+  - pattern: Validators/*
+    description: FluentValidation validators for DTOs to ensure proper request data.
+  - pattern: appsettings.json
+    description: Configuration for database connection, JWT settings, and session management.
+  - pattern: Program.cs
+    description: Registers services, configures authentication, session, middleware, and DB context.
+  - pattern: Startup.cs
+    description: Handles service registration, middleware pipeline, and authentication configuration (if not using minimal hosting).
+
+tasks:
+  - goal: Setup EF Core Code-First approach
+    steps:
+      - Install EF Core packages
+      - Create Models folder with entities (Admin, Doctor, Patient, Appointment, Inventory, Order, Feedback, Prescription, Product)
+      - Create HospitalContext and configure DbSets
+      - Run initial migration and update database
+  - goal: Implement JWT Authentication
+    steps:
+      - Create AuthController with /api/login endpoint
+      - Generate JWT token using JwtHelper.cs
+      - Add JwtMiddleware to validate tokens
+      - Configure authentication and authorization in Program.cs
+  - goal: Implement Session Management
+    steps:
+      - Enable session in Program.cs
+      - Store user role and email in session after login
+      - Use session in controllers for logged-in user data
+  - goal: Create AdminController
+    steps:
+      - Add /api/admin/dashboard endpoint
+      - Add /api/admin/details endpoint
+      - Add /api/appointments/all endpoint
+  - goal: Create DoctorController
+    steps:
+      - Add endpoints for register, fetchAllDoctors, update, delete
+      - Add issue-prescription endpoint
+  - goal: Create PatientController
+    steps:
+      - Add endpoints for register, fetchAllPatients, details, update, delete
+  - goal: Create AppointmentController
+    steps:
+      - Add endpoints for patient, doctor, and admin
+      - Add status update (approve/reject/complete) endpoint
+  - goal: Create InventoryController
+    steps:
+      - Add CRUD endpoints
+      - Add search, low-stock, expiring items, and dashboard endpoints
+  - goal: Create OrderController
+    steps:
+      - Add place order, update, delete, and get patient orders endpoints
+  - goal: Create FeedbackController
+    steps:
+      - Add submit feedback and get all feedback endpoints
+  - goal: Create ProductController
+    steps:
+      - Add getProducts and getProductById endpoints
